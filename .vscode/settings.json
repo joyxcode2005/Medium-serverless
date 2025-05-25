@@ -1,7 +1,0 @@
-{
-  "ligatures-limited.languageSettings": {
-  "javascript": {
-    "enabledLigatures": ["<=", "!="]
-  }
-}
-}
