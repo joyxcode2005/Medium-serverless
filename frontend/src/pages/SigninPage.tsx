@@ -1,12 +1,11 @@
-
-import Auth from "../components/Auth";
 import Quote from "../components/Quote";
+import Singin from "../components/Singin";
 
-const Signup = () => {
+const SigninPage = () => {
   return (
     <div className="h-screen w-full grid grid-cols-1 md:grid-cols-2">
       <div className="">
-        <Auth type="signin" />
+        <Singin />
       </div>
       <div className="invisible md:visible">
         <Quote />
@@ -15,4 +14,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SigninPage;
