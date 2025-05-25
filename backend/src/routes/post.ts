@@ -1,3 +1,4 @@
+import { createPostInput, updatePostInput } from "@joyxcoder/medium-common";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Hono } from "hono";
@@ -23,7 +24,7 @@ postRouter.use("/*", async (c, next) => {
 
   try {
     const user = await verify(token, c.env.JWT_SECRET);
-  
+
     if (user) {
       c.set("userId", String(user.id));
       await next();
@@ -35,14 +36,24 @@ postRouter.use("/*", async (c, next) => {
     }
   } catch (error) {
     c.status(403);
-      return c.json({
-        message: "You are not logged In!",
-      });
+    return c.json({
+      message: "You are not logged In!",
+    });
   }
 });
 
 postRouter.post("/", async (c) => {
   const body = await c.req.json();
+
+  const { success } = createPostInput.safeParse(body);
+
+  if (!success) {
+    c.status(411);
+    return c.json({
+      message: "Inputs are not correct!!",
+    });
+  }
+
   const authorId = c.get("userId");
 
   const prisma = new PrismaClient({
@@ -69,7 +80,7 @@ postRouter.get("/bulk", async (c) => {
   }).$extends(withAccelerate());
 
   const blogs = await prisma.post.findMany();
-  
+
   return c.json({
     blogs,
   });
@@ -77,6 +88,16 @@ postRouter.get("/bulk", async (c) => {
 
 postRouter.put("/", async (c) => {
   const body = await c.req.json();
+
+  const { success } = updatePostInput.safeParse(body);
+
+  if (!success) {
+    c.status(411);
+    return c.json({
+      message: "Inputs are not correct!!",
+    });
+  }
+
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
@@ -96,8 +117,6 @@ postRouter.put("/", async (c) => {
   });
 });
 
-
-
 postRouter.get("/:id", async (c) => {
   const id = c.req.param("id");
   const prisma = new PrismaClient({
@@ -114,7 +133,6 @@ postRouter.get("/:id", async (c) => {
     return c.json({
       id: blog,
     });
-
   } catch (error) {
     c.status(411);
     return c.json({
@@ -122,5 +140,3 @@ postRouter.get("/:id", async (c) => {
     });
   }
 });
-
-

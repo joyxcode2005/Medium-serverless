@@ -1,8 +1,8 @@
 import { Hono } from "hono";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { PrismaClient } from "@prisma/client/edge";
-import { decode, sign, verify } from "hono/jwt";
-import { signupInput } from "@joyxcoder/medium-common";
+import {  sign } from "hono/jwt";
+import { signinInput, signupInput } from "@joyxcoder/medium-common";
 
 export const userRouter = new Hono<{
   // Generic to define the type of env variables in hono.
@@ -19,7 +19,7 @@ userRouter.post("/signup", async (c) => {
 
   // To get data from body in hono
   const body = await c.req.json();  
-  const { success, error } = signupInput.safeParse(body);
+  const { success } = signupInput.safeParse(body);
 
   if(!success) {
     c.status(411);
@@ -55,6 +55,15 @@ userRouter.post("/signin", async (c) => {
   }).$extends(withAccelerate());
 
   const body = await c.req.json();
+  const {success} = signinInput.safeParse(body);
+  
+  if(!success) {
+    c.status(411);
+    return c.json({
+      message: "Inputs are not correct!!",
+    })
+  }
+
   try {
     const user = await prisma.user.findUnique({
       where: {
