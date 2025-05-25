@@ -21,16 +21,23 @@ postRouter.use("/*", async (c, next) => {
 
   const token = authHeader.split(" ")[1];
 
-  const user = await verify(token, c.env.JWT_SECRET);
-
-  if (user) {
-    c.set("userId", String(user.id));
-    await next();
-  } else {
+  try {
+    const user = await verify(token, c.env.JWT_SECRET);
+  
+    if (user) {
+      c.set("userId", String(user.id));
+      await next();
+    } else {
+      c.status(403);
+      return c.json({
+        message: "You are not logged In!",
+      });
+    }
+  } catch (error) {
     c.status(403);
-    return c.json({
-      message: "You are not logged In!",
-    });
+      return c.json({
+        message: "You are not logged In!",
+      });
   }
 });
 
@@ -55,6 +62,19 @@ postRouter.post("/", async (c) => {
   });
 });
 
+// TODO: Add pagination
+postRouter.get("/bulk", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const blogs = await prisma.post.findMany();
+  
+  return c.json({
+    blogs,
+  });
+});
+
 postRouter.put("/", async (c) => {
   const body = await c.req.json();
   const prisma = new PrismaClient({
@@ -76,8 +96,10 @@ postRouter.put("/", async (c) => {
   });
 });
 
-postRouter.get("/", async (c) => {
-  const body = await c.req.json();
+
+
+postRouter.get("/:id", async (c) => {
+  const id = c.req.param("id");
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
@@ -85,7 +107,7 @@ postRouter.get("/", async (c) => {
   try {
     const blog = await prisma.post.findFirst({
       where: {
-        id: body.id,
+        id: id,
       },
     });
 
@@ -101,15 +123,4 @@ postRouter.get("/", async (c) => {
   }
 });
 
-// TODO: Add pagination
-postRouter.get("/bulk", async (c) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
 
-  const blogs = await prisma.post.findMany();
-
-  return c.json({
-    blogs,
-  });
-});
