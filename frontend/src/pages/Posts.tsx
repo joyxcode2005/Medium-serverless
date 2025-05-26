@@ -64,14 +64,25 @@ const Posts = () => {
     );
   }
 
+  interface Post {
+    id: string;
+    title: string;
+    author: {
+      name: string;
+    };
+    content: string;
+    createdAt: string;
+  }
+
   return (
     <div className="w-full min-h-screen bg-gray-50">
       <Appbar />
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="space-y-6">
-          {posts.map((post, index) => (
+          {posts.map((post: Post, index) => (
             <BlogPost
-              key={post.id || index} // Add key prop
+              id={post.id}
+              key={post.id || index}
               author={post.author.name}
               content={post.content}
               title={post.title}

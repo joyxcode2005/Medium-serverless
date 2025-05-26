@@ -136,6 +136,13 @@ postRouter.get("/:id", async (c) => {
       where: {
         id: id,
       },
+      include: {
+        author: {
+          select: {
+            name: true,
+          }
+        }
+      }
     });
 
     return c.json({
