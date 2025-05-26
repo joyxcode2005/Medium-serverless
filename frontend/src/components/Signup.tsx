@@ -17,6 +17,8 @@ const Signup = () => {
   const handleSignup = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    console.log(postInputs);
+
     try {
       const respose = await axios.post(
         `${BACKEND_URL}/api/v1/user/signup`,

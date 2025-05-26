@@ -1,16 +1,22 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Appbar = () => {
   const navigate = useNavigate();
 
   const handlelogout = () => {
-    localStorage.removeItem("token")
+    localStorage.removeItem("token");
     navigate("/signin");
   };
 
+  const handlecreateBlog = () => {
+    navigate("/create");
+  };
+
   return (
-    <div className="w-screen h-[10vh] border-b-1 border-slate-700 flex items-center justify-between p-4">
-      <h2 className="text-4xl font-semibold uppercase">Noted</h2>
+    <div className="w-full h-[10vh] border-b-1 border-slate-700 flex items-center justify-between p-4">
+      <h2 className="text-4xl font-semibold uppercase">
+        <Link to={"/posts"}>Noted</Link>
+      </h2>
       <div className="flex">
         <div className="relative w-8 h-8 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
           <svg
@@ -26,6 +32,13 @@ const Appbar = () => {
             ></path>
           </svg>
         </div>
+        <button
+          type="button"
+          onClick={handlecreateBlog}
+          className="focus:outline-none text-black border-1 border-black  font-medium rounded-lg text-sm px-5 py-2 flex items-center justify-center ml-2 cursor-pointer"
+        >
+          + Create
+        </button>
         <button
           type="button"
           onClick={handlelogout}

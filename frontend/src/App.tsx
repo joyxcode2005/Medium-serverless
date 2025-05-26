@@ -3,6 +3,7 @@ import Post from "./pages/Post";
 import SignupPage from "./pages/SignupPage";
 import SigninPage from "./pages/SigninPage";
 import Posts from "./pages/Posts";
+import CreateBlog from "./pages/CreateBlog";
 
 const App = () => {
   const isauthenticate = localStorage.getItem("token");
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/signin" element={<SigninPage />} />
           <Route path="/post/:id" element={<Post />} />
+          <Route path="/create" element={<CreateBlog />} />
           <Route
             path="/posts"
             element={isauthenticate ? <Posts /> : <Navigate to={"/signin"} />}

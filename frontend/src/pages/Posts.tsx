@@ -1,19 +1,87 @@
-import Appbar from "../components/Appbar"
-import BlogPost from "../components/BlogPost"
-
+import Appbar from "../components/Appbar";
+import BlogPost from "../components/BlogPost";
+import useFetchPosts from "../hooks/usePosts";
 
 const Posts = () => {
-  return (
-    <div className="w-screen h-full">
-      <Appbar/>
-      <BlogPost
-      title="How is a single person like levelsio is producing products which the tech giants are taking a team of 50 devs to produce?"
-      content="A single developer like Levelsio (Pieter Levels) is able to produce impactful products at the pace of large teams by leveraging simplicity, focus, and modern tools. Unlike big tech companies that often have complex processes, layers of approval, and teams split across roles, solo builders can move fast without bureaucratic friction. Levelsio builds for niche markets with immediate feedback loops, uses no-code or low-code tools when needed, automates repetitive tasks, and focuses on launching a minimum viable product (MVP) quickly rather than perfecting every feature. This lean, iterative approach, combined with his experience, community understanding, and discipline, allows him to outpace teams that may be bogged down by overengineering and internal politics."
-      author="Joy Sengupta"
-      date="26/05/2025"
-      />
-    </div>
-  )
-}
+  const { posts, isLoading } = useFetchPosts();
 
-export default Posts
+  if (isLoading) {
+    return (
+      <div className="w-full min-h-screen bg-gray-50">
+        <Appbar />
+        <div className="max-w-4xl mx-auto px-4 py-8">
+          <div className="space-y-6">
+            {/* Skeleton for multiple blog posts */}
+            {[...Array(3)].map((_, index) => (
+              <div
+                key={index}
+                role="status"
+                className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow-sm animate-pulse"
+              >
+                {/* Post header skeleton */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-3">
+                    {/* Author avatar skeleton */}
+                    <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+                    <div>
+                      {/* Author name skeleton */}
+                      <div className="h-4 bg-gray-300 rounded w-24 mb-2"></div>
+                      {/* Date skeleton */}
+                      <div className="h-3 bg-gray-200 rounded w-20"></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Title skeleton */}
+                <div className="mb-4">
+                  <div className="h-6 bg-gray-300 rounded w-3/4 mb-2"></div>
+                  <div className="h-6 bg-gray-300 rounded w-1/2"></div>
+                </div>
+
+                {/* Content skeleton */}
+                <div className="space-y-2">
+                  <div className="h-4 bg-gray-200 rounded w-full"></div>
+                  <div className="h-4 bg-gray-200 rounded w-full"></div>
+                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                  <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                </div>
+
+                {/* Action buttons skeleton */}
+                <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
+                  <div className="flex space-x-4">
+                    <div className="h-8 bg-gray-200 rounded w-16"></div>
+                    <div className="h-8 bg-gray-200 rounded w-20"></div>
+                  </div>
+                  <div className="h-8 bg-gray-200 rounded w-12"></div>
+                </div>
+
+                <span className="sr-only">Loading post {index + 1}...</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-full min-h-screen bg-gray-50">
+      <Appbar />
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="space-y-6">
+          {posts.map((post, index) => (
+            <BlogPost
+              key={post.id || index} // Add key prop
+              author={post.author.name}
+              content={post.content}
+              title={post.title}
+              date={post.createdAt.split("T")[0]}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Posts;
