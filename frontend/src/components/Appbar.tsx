@@ -14,8 +14,11 @@ const Appbar = () => {
 
   return (
     <div className="w-full h-[10vh] border-b-1 border-slate-700 flex items-center justify-between p-4">
-      <h2 className="text-4xl font-semibold uppercase">
-        <Link to={"/posts"}>Noted</Link>
+      <h2 className="text-4xl font-semibold uppercase flex">
+        <img src="logo.png" alt="logo" width={50} />
+        <Link to={"/posts"} className="flex flex-col justify-center ml-2">
+          Noted <br /> <span className="text-lg -mt-2">Blogging Online</span>
+        </Link>
       </h2>
       <div className="flex">
         <div className="relative w-8 h-8 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
