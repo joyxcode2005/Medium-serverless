@@ -5,9 +5,21 @@ import SigninPage from "./pages/SigninPage";
 import Posts from "./pages/Posts";
 import CreateBlog from "./pages/CreateBlog";
 import EditPost from "./pages/EditPost";
+import { useEffect, useState } from "react";
 
 const App = () => {
-  const isauthenticate = localStorage.getItem("token");
+  const [isauthenticated, setIsauthenticated] = useState(
+    Boolean(localStorage.getItem("token"))
+  );
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setIsauthenticated(Boolean(localStorage.getItem("token")));
+    };
+
+
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   return (
     <>
@@ -16,7 +28,7 @@ const App = () => {
           <Route
             path="/"
             element={
-              isauthenticate ? (
+              isauthenticated ? (
                 <Navigate to={"/posts"} />
               ) : (
                 <Navigate to={"/signup"} />
@@ -30,7 +42,7 @@ const App = () => {
           <Route path="/create" element={<CreateBlog />} />
           <Route
             path="/posts"
-            element={isauthenticate ? <Posts /> : <Navigate to={"/signin"} />}
+            element={isauthenticated ? <Posts /> : <Navigate to={"/signin"} />}
           />
         </Routes>
       </BrowserRouter>
