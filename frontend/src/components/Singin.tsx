@@ -7,7 +7,7 @@ import { BACKEND_URL } from "../config";
 
 const Singin = () => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [postInputs, setPosInputs] = useState<SigninInput>({
     username: "",
     password: "",
@@ -22,7 +22,7 @@ const Singin = () => {
         postInputs
       );
       localStorage.setItem("token", response.data.jwt);
-      navigate("/posts");
+      window.location.href = "/posts"
     } catch (error) {
       alert("Error while signing in!!");
     }
