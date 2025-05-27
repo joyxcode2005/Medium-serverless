@@ -15,7 +15,7 @@ const Appbar = () => {
   return (
     <div className="w-full h-[10vh] border-b-1 border-slate-700 flex items-center justify-between p-4">
       <h2 className="text-4xl font-semibold uppercase flex">
-        <img src="logo.png" alt="logo" width={50} />
+        <img src="/logo.png" alt="logo" width={50} />
         <Link to={"/posts"} className="flex flex-col justify-center ml-2">
           Noted <br /> <span className="text-lg -mt-2">Blogging Online</span>
         </Link>
