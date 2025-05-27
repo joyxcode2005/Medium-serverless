@@ -13,7 +13,16 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navigate to={"/signup"} />} />
+          <Route
+            path="/"
+            element={
+              isauthenticate ? (
+                <Navigate to={"/posts"} />
+              ) : (
+                <Navigate to={"/signup"} />
+              )
+            }
+          />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/signin" element={<SigninPage />} />
           <Route path="/post/:id" element={<Post />} />
