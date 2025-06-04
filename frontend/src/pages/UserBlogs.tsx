@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Pencil } from "lucide-react";
 import { BACKEND_URL } from "../config";
 import axios from "axios";
@@ -33,7 +33,7 @@ export default function UserBlogsPage() {
       try {
         setLoading(true);
         setError(null);
-        
+
         const config = {
           method: "get" as const,
           maxBodyLength: Infinity,
@@ -48,7 +48,7 @@ export default function UserBlogsPage() {
       } catch (error) {
         console.error("Error fetching user blogs:", error);
         setError("Failed to load your blogs. Please try again.");
-        
+
         // Handle authentication errors
         if (axios.isAxiosError(error) && error.response?.status === 401) {
           localStorage.removeItem("token");
@@ -122,7 +122,9 @@ export default function UserBlogsPage() {
 
         {userBlogs.length === 0 ? (
           <div className="text-center py-8">
-            <p className="text-gray-500 mb-4">You haven't created any blogs yet.</p>
+            <p className="text-gray-500 mb-4">
+              You haven't created any blogs yet.
+            </p>
             <button
               onClick={() => navigate("/create")}
               className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
