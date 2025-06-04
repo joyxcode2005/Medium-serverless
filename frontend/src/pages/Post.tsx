@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
@@ -20,7 +20,6 @@ const Post = () => {
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");
-  const navigate = useNavigate();
 
   // Fetch post data
   useEffect(() => {
@@ -115,13 +114,6 @@ const Post = () => {
               })}
             </span>{" "}
           </div>
-          <button
-            onClick={() => navigate(`/edit/${id}`)}
-            type="button"
-            className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
-          >
-            Update
-          </button>
         </div>
 
         {/* Divider */}

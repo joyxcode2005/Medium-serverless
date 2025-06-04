@@ -84,13 +84,38 @@ postRouter.get("/bulk", async (c) => {
       author: {
         select: {
           name: true,
+        },
+      },
+    },
+  });
+
+  return c.json({
+    blogs,
+  });
+});
+
+postRouter.get("/user-bluk", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const userId = c.get("userId");
+
+  const user_blogs = await prisma.post.findMany({
+    where: {
+      authorId: userId,
+    },
+    include: {
+      author: {
+        select: {
+          name: true
         }
       }
     }
   });
 
   return c.json({
-    blogs,
+    user_blogs,
   });
 });
 
@@ -140,9 +165,9 @@ postRouter.get("/:id", async (c) => {
         author: {
           select: {
             name: true,
-          }
-        }
-      }
+          },
+        },
+      },
     });
 
     return c.json({

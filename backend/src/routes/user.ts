@@ -12,7 +12,6 @@ export const userRouter = new Hono<{
   };
 }>();
 
-
 userRouter.post("/signup", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
@@ -61,7 +60,7 @@ userRouter.post("/signin", async (c) => {
 
   if (!success) {
     c.status(411);
-    console.log(error)
+    console.log(error);
     return c.json({
       message: "Inputs are not correct!!",
     });
@@ -90,7 +89,7 @@ userRouter.post("/signin", async (c) => {
     });
   } catch (error) {
     c.status(500);
-    console.log(error)
+    console.log(error);
     return c.json({
       error: "Internal Server Error!!!",
     });
