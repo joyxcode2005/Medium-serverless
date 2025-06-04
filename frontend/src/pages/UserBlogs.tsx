@@ -158,13 +158,13 @@ export default function UserBlogsPage() {
                 <div className="flex gap-2">
                   <button
                     onClick={() => navigate(`/post/${blog.id}`)}
-                    className="px-3 py-2 text-sm text-blue-600 hover:bg-blue-50 rounded-md transition"
+                    className="px-3 py-2 text-sm cursor-pointer text-blue-600 hover:bg-blue-50 rounded-md transition"
                   >
                     View
                   </button>
                   <button
                     onClick={() => navigate(`/edit/${blog.id}`)}
-                    className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100 transition"
+                    className="flex items-center gap-2 cursor-pointer px-3 py-2 border bg-yellow-500 border-gray-300 text-white rounded-md text-sm hover:bg-yellow-400 transition"
                   >
                     <Pencil className="w-4 h-4" />
                     Edit
