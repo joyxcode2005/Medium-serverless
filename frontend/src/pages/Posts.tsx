@@ -7,43 +7,43 @@ const Posts = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full min-h-screen bg-gray-50">
+      <div className="w-full min-h-screen dark:bg-slate-800 bg-gray-50">
         <Appbar />
-        <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto px-4 py-8 dark:bg-slate-800 bg-gray-50">
           <div className="space-y-6">
             {/* Skeleton for multiple blog posts */}
             {[...Array(3)].map((_, index) => (
               <div
                 key={index}
                 role="status"
-                className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow-sm animate-pulse"
+                className="w-full p-6 dark:bg-slate-700 bg-white border  border-gray-200 rounded-lg shadow-sm animate-pulse"
               >
                 {/* Post header skeleton */}
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-3">
                     {/* Author avatar skeleton */}
-                    <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+                    <div className="w-10 h-10 dark:bg-slate-600 bg-gray-300 rounded-full"></div>
                     <div>
                       {/* Author name skeleton */}
-                      <div className="h-4 bg-gray-300 rounded w-24 mb-2"></div>
+                      <div className="h-4 dark:bg-slate-600 bg-gray-300 rounded w-24 mb-2"></div>
                       {/* Date skeleton */}
-                      <div className="h-3 bg-gray-200 rounded w-20"></div>
+                      <div className="h-3 dark:bg-slate-600 bg-gray-200 rounded w-20"></div>
                     </div>
                   </div>
                 </div>
 
                 {/* Title skeleton */}
                 <div className="mb-4">
-                  <div className="h-6 bg-gray-300 rounded w-3/4 mb-2"></div>
-                  <div className="h-6 bg-gray-300 rounded w-1/2"></div>
+                  <div className="h-6 dark:bg-slate-700 bg-gray-300 rounded w-3/4 mb-2"></div>
+                  <div className="h-6 dark:bg-slate-700 bg-gray-300 rounded w-1/2"></div>
                 </div>
 
                 {/* Content skeleton */}
                 <div className="space-y-2">
-                  <div className="h-4 bg-gray-200 rounded w-full"></div>
-                  <div className="h-4 bg-gray-200 rounded w-full"></div>
-                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                  <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                  <div className="h-4 dark:bg-slate-600 bg-gray-200 rounded w-full"></div>
+                  <div className="h-4 dark:bg-slate-600 bg-gray-200 rounded w-full"></div>
+                  <div className="h-4 dark:bg-slate-600 bg-gray-200 rounded w-3/4"></div>
+                  <div className="h-4 dark:bg-slate-600 bg-gray-200 rounded w-5/6"></div>
                 </div>
 
                 {/* Action buttons skeleton */}
@@ -75,7 +75,7 @@ const Posts = () => {
   }
 
   return (
-    <div className="w-full min-h-screen bg-gray-50">
+    <div className="w-full min-h-screen dark:bg-slate-800 bg-gray-50">
       <Appbar />
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="space-y-6">

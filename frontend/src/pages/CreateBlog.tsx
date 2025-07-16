@@ -1,8 +1,8 @@
-import { useState } from "react";
-import axios from "axios";
-import { BACKEND_URL } from "../config";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import ReactQuill from "react-quill";
 import Appbar from "../components/Appbar";
+import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../config";
 
 const CreateBlog = () => {
   const [title, setTitle] = useState("");
@@ -14,77 +14,94 @@ const CreateBlog = () => {
     e.preventDefault();
     setLoading(true);
 
-    console.log("Title: ", title);
-    console.log("Content: ", content);
     try {
       const token = localStorage.getItem("token");
+      const response = await fetch(`${BACKEND_URL}/api/v1/post`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ title, content }),
+      });
 
-      const response = await axios.post(
-        `${BACKEND_URL}/api/v1/post`,
-        { title, content },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.status === 200) {
+      if (response.ok) {
         alert("✅ Blog created successfully!");
         setTitle("");
         setContent("");
         navigate("/posts");
       } else {
-        alert("❌ Error in creating post!!!");
+        alert("❌ Error in creating post.");
       }
-    } catch (error: any) {
-      alert("❌ Error in creating post!!!");
+    } catch (error) {
+      alert("❌ Error occurred.");
     } finally {
       setLoading(false);
     }
   };
 
-  
-
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100 dark:bg-slate-800">
       <Appbar />
-      <div className="max-w-3xl mx-auto p-4 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-4 uppercase text-center">
+      <div className="max-w-3xl mx-auto px-4 py-8 bg-white dark:bg-slate-800 rounded-md">
+        <h1 className="text-4xl font-bold mb-6 text-center text-black dark:text-white">
           Create a New Blog
         </h1>
+
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-lg font-bold mb-1">Title</label>
+            <label className="block text-xl font-bold mb-1 dark:text-white">
+              Title
+            </label>
             <input
               type="text"
-              className="w-full border border-gray-300 rounded-md p-2"
+              className="w-full border border-gray-300 rounded-md p-2 dark:bg-slate-700 dark:text-white"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              required
               placeholder="Enter blog title"
+              required
             />
           </div>
 
-          <div className="mb-4">
-            <label className="block text-lg font-bold mb-1">Content</label>
-            <textarea
-              style={{ resize: "none" }}
-              className="w-full border border-gray-300 rounded-md p-2 h-80"
+          <div className="mb-6">
+            <label className="block text-xl font-bold mb-2 dark:text-white">
+              Content
+            </label>
+            <ReactQuill
+              theme="snow"
               value={content}
-              onChange={(e) => setContent(e.target.value)}
-              required
+              onChange={setContent}
               placeholder="Write your blog content..."
+              modules={{
+                toolbar: [
+                  [{ header: [1, 2, 3, false] }],
+                  ["bold", "italic", "underline", "strike"],
+                  [{ list: "ordered" }, { list: "bullet" }],
+                  ["link", "image"],
+                  ["clean"],
+                ],
+              }}
+              formats={[
+                "header",
+                "bold",
+                "italic",
+                "underline",
+                "strike",
+                "list",
+                "bullet",
+                "link",
+                "image",
+              ]}
+              style={{ height: "300px", marginBottom: "50px" }}
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-500 cursor-pointer"
+            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500"
           >
-            Create Post
+            {loading ? "Creating..." : "Create Post"}
           </button>
         </form>
       </div>

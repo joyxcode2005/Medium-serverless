@@ -50,16 +50,16 @@ const Post = () => {
           <div className="animate-pulse">
             {/* Title skeleton */}
             <div className="space-y-3 mb-6">
-              <div className="h-8 bg-gray-200 rounded-lg w-3/4"></div>
-              <div className="h-8 bg-gray-200 rounded-lg w-1/2"></div>
+              <div className="h-8 dark:bg-slate-700 bg-gray-200 rounded-lg w-3/4"></div>
+              <div className="h-8 dark:bg-slate-700 bg-gray-200 rounded-lg w-1/2"></div>
             </div>
 
             {/* Metadata skeleton */}
             <div className="flex items-center space-x-2 mb-6">
-              <div className="h-4 bg-gray-200 rounded w-16"></div>
-              <div className="h-4 bg-gray-200 rounded w-24"></div>
-              <div className="h-4 bg-gray-200 rounded w-2"></div>
-              <div className="h-4 bg-gray-200 rounded w-20"></div>
+              <div className="h-4 dark:bg-slate-700 bg-gray-200 rounded w-16"></div>
+              <div className="h-4 dark:bg-slate-700 bg-gray-200 rounded w-24"></div>
+              <div className="h-4 dark:bg-slate-700 bg-gray-200 rounded w-2"></div>
+              <div className="h-4 dark:bg-slate-700 bg-gray-200 rounded w-20"></div>
             </div>
 
             {/* Divider */}
@@ -67,16 +67,16 @@ const Post = () => {
 
             {/* Content skeleton */}
             <div className="space-y-4">
-              <div className="h-4 bg-gray-200 rounded w-full"></div>
-              <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-              <div className="h-4 bg-gray-200 rounded w-4/5"></div>
-              <div className="h-4 bg-gray-200 rounded w-full"></div>
-              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-              <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-              <div className="h-4 bg-gray-200 rounded w-2/3"></div>
-              <div className="h-4 bg-gray-200 rounded w-full"></div>
-              <div className="h-4 bg-gray-200 rounded w-4/5"></div>
-              <div className="h-4 bg-gray-200 rounded w-3/5"></div>
+              <div className="h-4 dark:bg-slate-600 bg-gray-200 rounded w-full"></div>
+              <div className="h-4 dark:bg-slate-600 bg-gray-200 rounded w-5/6"></div>
+              <div className="h-4 dark:bg-slate-600 bg-gray-200 rounded w-4/5"></div>
+              <div className="h-4 dark:bg-slate-600 bg-gray-200 rounded w-full"></div>
+              <div className="h-4 dark:bg-slate-600 bg-gray-200 rounded w-3/4"></div>
+              <div className="h-4 dark:bg-slate-600 bg-gray-200 rounded w-5/6"></div>
+              <div className="h-4 dark:bg-slate-600 bg-gray-200 rounded w-2/3"></div>
+              <div className="h-4 dark:bg-slate-600 bg-gray-200 rounded w-full"></div>
+              <div className="h-4 dark:bg-slate-600 bg-gray-200 rounded w-4/5"></div>
+              <div className="h-4 dark:bg-slate-600 bg-gray-200 rounded w-3/5"></div>
             </div>
           </div>
           <span className="sr-only">Loading...</span>
@@ -88,11 +88,11 @@ const Post = () => {
   if (!post) return <div className="text-center mt-10">Post not found.</div>;
 
   return (
-    <div>
+    <div className="w-full min-h-screen dark:bg-slate-800 bg-gray-50">
       <Appbar />
       <div className="max-w-3xl mx-auto px-4 py-12 font-serif text-gray-800">
         {/* Title */}
-        <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4 dark:text-white">
           {post.title}
         </h1>
 
@@ -101,12 +101,12 @@ const Post = () => {
           <div>
             <span>
               By{" "}
-              <span className="font-medium text-gray-700">
+              <span className="font-medium text-gray-700 dark:text-blue-400">
                 {post.author.name}
               </span>
             </span>{" "}
             ·{" "}
-            <span>
+            <span className="text-yellow-500">
               {new Date(post.createdAt).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
@@ -120,7 +120,7 @@ const Post = () => {
         <hr className="my-6 border-gray-300" />
 
         {/* Post Content */}
-        <div className="prose prose-lg max-w-none">{post.content}</div>
+        <div className="prose prose-lg max-w-none dark:text-white">{post.content}</div>
       </div>
     </div>
   );
