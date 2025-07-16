@@ -32,17 +32,17 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-[#06080b] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <>
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            <h2 className="text-5xl font-extrabold text-orange-400 mb-2">
               Create an account
             </h2>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-lg font-winky">
               Already have an account?{" "}
               <Link
-                className="text-slate-600 hover:text-slate-800 underline"
+                className="text-yellow-400/50 hover:text-yellow-400 underline font-semibold text-lg"
                 to="/signin"
               >
                 Login
@@ -50,7 +50,7 @@ const Signup = () => {
             </p>
           </div>
 
-          <form className="space-y-6">
+          <form className="space-y-10">
             <LabelledInputField
               id="username"
               label="Username"
@@ -82,7 +82,7 @@ const Signup = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-lg capitalize font-winky text-white mb-1"
               >
                 Password
               </label>
@@ -99,7 +99,7 @@ const Signup = () => {
                       password: e.target.value,
                     })
                   }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500"
+                  className="w-full px-4 text-lg text-white py-4 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500"
                   required
                 />
                 <button
@@ -146,7 +146,7 @@ const Signup = () => {
 
             <button
               onClick={handleSignup}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-slate-950 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 transition-colors duration-200 cursor-pointer"
+              className="w-full flex justify-center py-4 px-6 border border-transparent rounded-xl shadow-sm text-2xl font-semibold text-white bg-orange-500 hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 transition-colors duration-200 cursor-pointer uppercase font-winky"
             >
               Sign Up
             </button>
